@@ -39,7 +39,7 @@ function Dashboard() {
         <Row>
           <Col>
             <section className='heading'>
-              <h1>Welcome {user && user.name}</h1>
+              <h1>Welcome {user && user.name} in usee </h1> 
             </section>
 
             <EventForm/>

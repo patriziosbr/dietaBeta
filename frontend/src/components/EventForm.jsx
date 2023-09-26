@@ -5,9 +5,9 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { useDispatch } from 'react-redux'
-import { createEvent, updateEvent } from '../features/events/eventSlice'
 import { toast } from 'react-toastify'
 
+import { createEvent, updateEvent } from '../features/events/eventSlice'
 
 function EventForm() {
 
