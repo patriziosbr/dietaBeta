@@ -31,6 +31,7 @@ const setFood = asyncHandler(async (req, res) => {
         foodName: req.body.foodName,
         foodWeight: req.body.foodWeight,
         courseType: req.body.courseType,
+        foodIcon: req.body.foodIcon,
         user: req.user.id
     })
     res.status(200).json(food)

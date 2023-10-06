@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useEffect } from "react"
 import { useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import Spinner from '../components/Spinner'
@@ -10,7 +10,7 @@ import Col from 'react-bootstrap/Col';
 import FoodForm from '../components/FoodForm'
 
 
-function FoodDashboard() {
+function FoodFormDashboard() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
@@ -52,4 +52,4 @@ function FoodDashboard() {
   )
 }
 
-export default FoodDashboard
+export default FoodFormDashboard

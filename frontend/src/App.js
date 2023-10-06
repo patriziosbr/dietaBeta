@@ -9,7 +9,7 @@ import Register from './pages/Register'
 import AddEvent from './pages/AddEvent'
 import EventDashboard from './pages/EventDashboard'
 import CalendarTest from './pages/CalendarTest'
-import FoodBoard from './pages/FoodDashboard'
+import FoodFormDashboard from './pages/FoodFormDashboard'
 
 function App() {
   return (
@@ -25,7 +25,7 @@ function App() {
             <Route exact path='/' element={<AddEvent />} />
             <Route exact path='/events' element={<EventDashboard />} />
             <Route exact path='/CalendarTest' element={<CalendarTest />} />
-            <Route exact path='/foodboard' element={<FoodBoard />} />
+            <Route exact path='/foodformdashboard' element={<FoodFormDashboard />} />
           </Routes>
         </div>
       </Router>

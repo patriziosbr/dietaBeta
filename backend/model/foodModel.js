@@ -17,6 +17,10 @@ const foodSchema = mongoose.Schema(
         courseType: {
             type: String, //(pasto1, pasto2)
             require: [true, 'Please add a food course type value']
+        },
+        foodIcon: {
+            type: String,
+            require: false
         }
     },
     {
