@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import EventForm from '../components/EventForm'
+import ScheduledEventForm from '../components/ScheduledEventForm'
 import Spinner from '../components/Spinner'
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -42,7 +42,7 @@ function Dashboard() {
               <h1>Welcome {user && user.name} in usee </h1> 
             </section>
 
-            <EventForm/>
+            <ScheduledEventForm/>
           </Col>
         </Row>
       </Container>

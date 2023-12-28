@@ -11,13 +11,13 @@ connectDB()
 
 const app = express();
 
-// app.use(cors(
-//     {
-//     origin: 'http://localhost:3000/', // Replace with your frontend URL
-//     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-//     credentials: true,
-//     }
-// )); // Use the cors middleware
+app.use(cors(
+    {
+    origin: 'http://localhost:3000/', // Replace with your frontend URL
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+    }
+)); // Use the cors middleware
 
 app.use(express.json());
 app.use(express.urlencoded({extended:false}))
@@ -26,6 +26,7 @@ app.use('/api/goals', require('./routes/goalRoutes'))
 app.use('/api/foods', require('./routes/foodRoutes'))
 app.use('/api/users', require('./routes/userRoutes'))
 app.use('/api/event', require('./routes/eventRoutes'))
+app.use('/api/scheduledEvent', require('./routes/scheduledEventsRoutes'))
 
 //serve frontend
 if (process.env.NODE_ENV === 'production') {
