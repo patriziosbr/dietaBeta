@@ -1,5 +1,8 @@
 const mongoose = require('mongoose')
 const scheduledEventSchema = mongoose.Schema({
+    day_game: {
+        type: String, 
+    },
     tournament_slug: {
         type: String, 
     },
@@ -22,7 +25,7 @@ const scheduledEventSchema = mongoose.Schema({
         type: String,
     },
     status_type: {
-        type: Number,
+        type: String,
     },
     homeTeam_slug: {
         type: String,
