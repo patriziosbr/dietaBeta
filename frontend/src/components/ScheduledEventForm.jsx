@@ -59,19 +59,23 @@ function GoalForm() {
       awayScore_period3: element.awayScore.period3,
       awayScore_period4: element.awayScore.period4,
     }));
-    setFilteredResultEvent(filteredData[0]);
+    setFilteredResultEvent(filteredData);
   };
 
   const dispatch = useDispatch()
 
   const onSubmit = () => {
-     filterEvent()
-    console.log(filteredResultEvent, "herrlo new");
+    filterEvent()
+    console.log(filteredResultEvent, "filteredResultEvent");
     if(filteredResultEvent !== null && filteredResultEvent !== undefined){
-      console.log(filteredResultEvent, "herrlo inside");
-      dispatch(createScheduledEvent(filteredResultEvent))
+      // console.log(filteredResultEvent, "herrlo inside");
+      // dispatch(createScheduledEvent(filteredResultEvent)) // POST event
+      filteredResultEvent.forEach((element, index) => {
+        dispatch(createScheduledEvent(element)) 
+        console.log("chiamata n", index);
+      });
     }
-    setText('')
+
   }
 
 
