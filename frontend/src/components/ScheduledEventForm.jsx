@@ -3,38 +3,70 @@ import { useDispatch } from 'react-redux'
 import { createScheduledEvent } from '../features/scheduledEvent/scheduledEventSlice'
 import axios from 'axios';
 
-const toDayApi = "2024-01-06"
-const baseURL = "https://api.sofascore.com/api/v1/category/15/scheduled-events/" + toDayApi;
+const toDayApi = "2024-01-07"
+const baseURL = "https://api.sofascore.com/api/v1/category/15/scheduled-events/";
 
 function GoalForm() {
-  const [text, setText] = useState('')
-  const [resultEvent, setResultEvent] = useState(null);
+  const [resultEvent, setResultEvent] = useState([]);
   const [filteredResultEvent, setFilteredResultEvent] = useState(null);
-  const [filteredEvents, setfilteredEvents] = useState(null);
+  
+  const datesArray = [
+    "2024-01-05",
+    "2024-01-06",
+    "2024-01-07"
+  ]
+
+//FARE QUESTO IN FETCHDATA E FAR USCIRE RESULT EVENT  BOZZA 
+  // useEffect(() => {
+  //   axios.get(baseURL).then((response) => {
+  //     console.log(response.data.events);
+  //     setResultEvent(response.data.events);
+  //   });
+  // }, [resultEvent]);
 
 
-    const fetchData = async () => {
+  const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+  const fetchData = async () => {
+    const resultEvents = [];
+
+    for (let i = 0; i < datesArray.length; i++) {
       try {
-        const response = await axios.get(baseURL);
+        const response = await axios.get(baseURL + datesArray[i]);
         console.log(response.data.events);
-        console.log(toDayApi);
 
-        // Filter events based on the condition name_season === "NBA 23/24"
         const filteredEventsTemp = response.data.events.filter((event) => {
           return event.season.name === "NBA 23/24";
         });
+
         console.log(filteredEventsTemp);
-        setfilteredEvents(filteredEventsTemp);
-        setResultEvent(filteredEventsTemp);
+        resultEvents.push(filteredEventsTemp);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
-    };
+
+      await delay(500);
+    }
+
+    console.log(resultEvents);
+    setResultEvent(resultEvents);
+  };
+
+  useEffect(() => {
+    // This useEffect will be triggered after setResultEvent is done
+    console.log('Result Event Updated:', resultEvent);
+    // You can perform additional actions here if needed
+  }, [resultEvent]);
 
  
-
   const filterEvent = () => {
-    const filteredData = resultEvent.map((element) => ({
+    if (resultEvent.length === 0) {
+      console.log("resultEvent is empty");
+      return;
+    }
+  
+    const flattenedResult = [].concat.apply([], resultEvent); // Flatten the array
+    const filteredData = flattenedResult.map((element) => ({
       day_game: toDayApi,
       tournament_slug: element.tournament.slug,
       tournament_id: element.tournament.id,
@@ -60,6 +92,7 @@ function GoalForm() {
       awayScore_period4: element.awayScore.period4,
     }));
     setFilteredResultEvent(filteredData[0]);
+    console.log(filteredData[0], "filteredData[0]");
   };
 
   const dispatch = useDispatch()
@@ -71,7 +104,7 @@ function GoalForm() {
       console.log(filteredResultEvent, "herrlo inside");
       dispatch(createScheduledEvent(filteredResultEvent))
     }
-    setText('')
+
   }
 
 
@@ -85,7 +118,7 @@ function GoalForm() {
         <button onClick={onSubmit}>Salva su mongo</button>
       </div>
       <div>
-        {filteredEvents && filteredEvents.map((element, index) => (
+        {filteredResultEvent && filteredResultEvent.map((element, index) => (
           <div key={index}>
             <p>Tournament Slug: {element.tournament.slug}</p>
             <p>Tournament ID: {element.tournament.id}</p>
