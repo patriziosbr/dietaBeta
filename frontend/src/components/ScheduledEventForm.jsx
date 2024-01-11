@@ -4,7 +4,7 @@ import { createScheduledEvent } from '../features/scheduledEvent/scheduledEventS
 import axios from 'axios';
 
 const toDayApi = "2024-01-06"
-const baseURL = "https://api.sofascore.com/api/v1/category/15/scheduled-events/" + toDayApi;
+const baseURL = "https://api.sofascore.com/api/v1/category/15/scheduled-events/";
 
 function GoalForm() {
   const [text, setText] = useState('')
@@ -13,29 +13,46 @@ function GoalForm() {
   const [filteredEvents, setfilteredEvents] = useState(null);
 
 
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(baseURL);
-        console.log(response.data.events);
-        console.log(toDayApi);
+  const datesArray = [
+    "2024-01-05",
+    "2024-01-06",
+    "2024-01-07"
+  ]
 
-        // Filter events based on the condition name_season === "NBA 23/24"
+  const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+  const fetchData = async () => {
+    const resultEvents = [];
+
+    for (let i = 0; i < datesArray.length; i++) {
+      try {
+        const response = await axios.get(baseURL + datesArray[i]);
+        console.log(response.data.events);
+
         const filteredEventsTemp = response.data.events.filter((event) => {
           return event.season.name === "NBA 23/24";
         });
+
         console.log(filteredEventsTemp);
-        setfilteredEvents(filteredEventsTemp);
-        setResultEvent(filteredEventsTemp);
+        resultEvents.push(filteredEventsTemp);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
-    };
+
+      await delay(500);
+    }
+
+    console.log(resultEvents);
+    setResultEvent(resultEvents);
+    setfilteredEvents(resultEvents);
+  };
 
  
 
   const filterEvent = () => {
-    const filteredData = resultEvent.map((element) => ({
-      day_game: toDayApi,
+    const filteredData = resultEvent.map((dailyEvent, index) => 
+    dailyEvent.map(element => ({
+      day_game: datesArray[index],
       tournament_slug: element.tournament.slug,
       tournament_id: element.tournament.id,
       name_season: element.season.name,
@@ -58,7 +75,9 @@ function GoalForm() {
       awayScore_period2: element.awayScore.period2,
       awayScore_period3: element.awayScore.period3,
       awayScore_period4: element.awayScore.period4,
-    }));
+    }))
+  ) 
+  console.log(filteredData, "filteredDatatata");
     setFilteredResultEvent(filteredData);
   };
 
@@ -70,10 +89,13 @@ function GoalForm() {
     if(filteredResultEvent !== null && filteredResultEvent !== undefined){
       // console.log(filteredResultEvent, "herrlo inside");
       // dispatch(createScheduledEvent(filteredResultEvent)) // POST event
-      filteredResultEvent.forEach((element, index) => {
-        dispatch(createScheduledEvent(element)) 
-        console.log("chiamata n", index);
-      });
+      filteredResultEvent.forEach((gameDays) => {
+        gameDays.map((singleElement, index) => {
+          dispatch(createScheduledEvent(singleElement))
+          console.log("element n", singleElement);
+          console.log("chiamata n", index);
+        })
+    });
     }
 
   }
@@ -89,7 +111,7 @@ function GoalForm() {
         <button onClick={onSubmit}>Salva su mongo</button>
       </div>
       <div>
-        {filteredEvents && filteredEvents.map((element, index) => (
+        {/* {filteredEvents && filteredEvents.map((element, index) => (
           <div key={index}>
             <p>Tournament Slug: {element.tournament.slug}</p>
             <p>Tournament ID: {element.tournament.id}</p>
@@ -114,7 +136,7 @@ function GoalForm() {
             <p>Away Score Period 3: {element.awayScore.period3}</p>
             <p>Away Score Period 4: {element.awayScore.period4}</p>
           </div>
-        ))}
+        ))} */}
         <hr />
 
       </div>
