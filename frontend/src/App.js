@@ -9,7 +9,9 @@ import Register from './pages/Register'
 import AddEvent from './pages/AddEvent'
 import EventDashboard from './pages/EventDashboard'
 import CalendarTest from './pages/CalendarTest'
-import FoodFormDashboard from './pages/FoodFormDashboard'
+import PastDaysGames from './pages/PastDaysGames'
+import SingleDayGames from './pages/SingleDayGames'
+
 
 function App() {
   return (
@@ -25,7 +27,8 @@ function App() {
             <Route exact path='/' element={<AddEvent />} />
             <Route exact path='/events' element={<EventDashboard />} />
             <Route exact path='/CalendarTest' element={<CalendarTest />} />
-            <Route exact path='/foodformdashboard' element={<FoodFormDashboard />} />
+            <Route exact path='/PastDaysGames' element={<PastDaysGames />} />
+            <Route exact path='/SingleDayGames' element={<SingleDayGames />} />
           </Routes>
         </div>
       </Router>

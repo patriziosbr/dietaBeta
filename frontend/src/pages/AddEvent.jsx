@@ -42,7 +42,7 @@ function Dashboard() {
               <h1>Welcome {user && user.name} in usee </h1> 
             </section>
 
-            <ScheduledEventForm/>
+            {/* <ScheduledEventForm/> */}
           </Col>
         </Row>
       </Container>

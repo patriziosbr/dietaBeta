@@ -25,7 +25,7 @@ function Header() {
 
   return (
     <>
-    <Container fluid className="bg-body-tertiary" style={{position:"fixed", top:"0", height:'60px', zIndex: 999}}>
+    <Container fluid className="bg-body-tertiary" style={{position:"fixed", top:"0", height:'60px', zIndex: 999, marginBottom: '50px'}}>
       <Navbar className='container' >
         <Navbar.Brand href='/' className='d-flex align-items-center'>
             <FaTelegram className="mr-1"/>
@@ -34,7 +34,8 @@ function Header() {
           <Nav className="me-auto">
             {/* {user && (<NavLink style={{marginRight:'10px', textDecoration:"none"}} className="text-dark" activeclassname="active" to='/events'>Events</NavLink> )} 
             {user && (<NavLink style={{marginRight:'10px', textDecoration:"none"}} className="text-dark" activeclassname="active" to='/CalendarTest'>CalendarTest</NavLink> )}  */}
-            {user && (<NavLink style={{marginRight:'10px', textDecoration:"none"}} className="text-dark" activeclassname="active" to='/foodformdashboard'>Add food</NavLink> )} 
+            {user && (<NavLink style={{marginRight:'10px', textDecoration:"none"}} className="text-dark" activeclassname="active" to='/PastDaysGames'>Past Days</NavLink> )} 
+            {user && (<NavLink style={{marginRight:'10px', textDecoration:"none"}} className="text-dark" activeclassname="active" to='/SingleDayGames'>Single day</NavLink> )} 
           </Nav>
           <Navbar.Toggle />
           <Navbar.Collapse className="justify-content-end">
